@@ -1,14 +1,15 @@
 const { Schema, model } = require("mongoose");
-const postSchema = require("./Post");
+const postSchema = require("./Thought");
 
 //ema to create User Model
 
 userSchema = new Schema(
   {
-    first: {
+    username: {
       type: String,
+      unique: true,
       required: true,
-      max_length: 50,
+      trimmed: true,
     },
     last: {
       type: String,
@@ -19,13 +20,16 @@ userSchema = new Schema(
       type: String,
       required: true,
       max_length: 50,
+      unique: true,
+      email: true,
     },
-    password: {
-      type: String,
-      required: true,
-      max_length: 50,
-    },
-    posts: [postSchema],
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "thought",
+      },
+    ],
+    friends: [{ type: Schema.Types.ObjectId, ref: "users" }],
   },
   {
     toJSON: {
