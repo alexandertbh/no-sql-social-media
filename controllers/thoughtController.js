@@ -18,7 +18,12 @@ module.exports = {
           { new: true, runValidators: true }
         )
       )
-      .then((thought) => res.json(thought))
+      .then((thought) =>
+        res.json([
+          { msg: "success! Your rhought was sucessfully created!" },
+          thought.thoughtText,
+        ])
+      )
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
@@ -33,25 +38,50 @@ module.exports = {
           { new: true, runValidators: true }
         )
       )
-      .then((reaction) => res.json(reaction))
+      .then((reaction) =>
+        res.json([
+          { msg: "success! Your reaction was succesfully added" },
+          reaction,
+        ])
+      )
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
       });
   },
 
-  //TODO: work on fixing route
+  removeReaction(req, res) {
+    Thought.findOneAndUpdate(
+      { _id: req.params.thoughtId },
+      { $pull: { reactions: { _id: req.body.reactionId } } },
+      { runValidators: true, new: true }
+    )
+      .then((reaction) =>
+        !reaction
+          ? res
+              .status(404)
+              .json({ message: "No reaction found with that ID :(" })
+          : res.json({ messge: "Your reaction was succesfully deleted" })
+      )
+      .catch((err) => res.status(500).json(err));
+  },
+
   removeThought(req, res) {
-    Thought.findOneAndDelete({ _id: req.params.thoughtId }).then((thought) =>
-      !thought
-        ? res.status(404).json({ message: "No thought found with that ID :(" })
-        : User.findByIdAndUpdate(
-            { thought: req.params.thoughtId },
-            { $pull: { thought: req.params.thoughtsId } },
-            { new: true }
-          )
-    );
-    res.json(thought).catch((err) => res.status(500).json(err));
+    Thought.findOneAndDelete({ _id: req.params.thoughtId })
+      .then((thought) => {
+        if (!thought) {
+          return res
+            .status(404)
+            .json({ message: "No thought found with that ID :(" });
+        }
+        User.findByIdAndUpdate(
+          { _id: req.body.userId },
+          { $pull: { thoughts: req.params.thoughtId } },
+          { new: true }
+        );
+        res.json({ msg: "your thought was deleted" });
+      })
+      .catch((err) => res.status(500).json(err));
   },
 
   updateThought(req, res) {
@@ -63,7 +93,10 @@ module.exports = {
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: "No thought with this id!" })
-          : res.json(thought)
+          : res.json([
+              thought.thoughtText,
+              { message: "new thought successfuly updated" },
+            ])
       )
       .catch((err) => res.status(500).json(err));
   },
