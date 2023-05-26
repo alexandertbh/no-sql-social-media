@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, Types, model } = require("mongoose");
 const reactionSchema = require("./Reaction");
 
 //ema to create User Model
@@ -7,7 +7,6 @@ const thoughtSchema = new Schema(
   {
     thoughtId: {
       type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
     },
     thoughtText: {
       type: String,
@@ -24,17 +23,13 @@ const thoughtSchema = new Schema(
       type: String,
       required: true,
     },
-    reactions: [
-      {
-        //todo: add an array of nested documents that reference the reactions
-        type: Schema.Types.ObjectId,
-        ref: "reaction",
-      },
-    ],
+
     updatedAt: {
       type: Date,
       default: Date.now,
     },
+    // TODO: fix the reactions being added here as it says Invalid schema configuration: `model` is not a valid type within the array `reactions`
+    reactions: [{ type: Schema.Types.ObjectId, ref: "reaction" }],
   },
   {
     toJSON: {
@@ -43,5 +38,5 @@ const thoughtSchema = new Schema(
   }
 );
 
-const Thought = model("thought", thoughtSchema);
+const Thought = model("thoughts", thoughtSchema);
 module.exports = Thought;

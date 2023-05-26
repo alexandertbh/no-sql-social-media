@@ -2,18 +2,18 @@ const { Schema, Types, model } = require("mongoose");
 
 //ema to create reaction Model
 
-reactionSchema = new Schema(
+const reactionSchema = new Schema(
   {
     reactionId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
-    thoughtText: {
-      type: String,
-      required: true,
-      max_length: 280,
-      min_length: 1,
-    },
+    // thoughtText: {
+    //   type: String,
+    //   required: true,
+    //   max_length: 280,
+    //   min_length: 1,
+    // },
     reactionBody: {
       type: String,
       required: true,
