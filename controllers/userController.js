@@ -2,6 +2,10 @@ const { ObjectId } = require("mongoose").Types;
 const { User, Thought } = require("../models");
 
 // aggregate all users to get total user count
+const totalUsers = async () =>
+  User.aggregate()
+    .count("userCount")
+    .then((numberOfUsers) => numberOfUsers);
 
 module.exports = {
   //get all users

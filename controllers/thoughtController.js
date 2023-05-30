@@ -67,7 +67,7 @@ module.exports = {
   },
 
   removeThought(req, res) {
-    Thought.findOneAndDelete({ _id: req.params.thoughtId })
+    Thought.findOneAndDelete({ _id: req.body.thoughtId })
       .then((thought) => {
         if (!thought) {
           return res
