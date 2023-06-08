@@ -1,6 +1,6 @@
 const express = require("express");
 const db = require("./config/connection");
-const routes = require("./routes");
+const routes = require("./routes/api/index");
 
 const cwd = process.cwd();
 
