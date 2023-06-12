@@ -40,7 +40,7 @@ FRIEND ROUTES
 ![Get All Thoughts](/assets/Screenshot%202023-05-30%20at%201.44.33%20PM.png)
  ![Post a Reactions](/assets/Screenshot%202023-05-30%20at%201.44.40%20PM.png)
 
-Video Walkthroug: https://drive.google.com/file/d/1Dy196yGAx4fIs7a9VmetWnrDiqpBvLxJ/view?usp=sharing
+Video Walkthrough: https://drive.google.com/file/d/1Dy196yGAx4fIs7a9VmetWnrDiqpBvLxJ/view?usp=sharing
 
 ## Credits
 
