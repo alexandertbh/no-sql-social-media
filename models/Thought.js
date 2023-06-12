@@ -22,7 +22,7 @@ const thoughtSchema = new Schema({
 
   updatedAt: {
     type: Date,
-    default: dayJs().format(),
+    default: dayJs().toDate("MM/DD/YYYY"),
   },
   reactions: [Reaction],
 });

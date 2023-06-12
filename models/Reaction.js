@@ -17,7 +17,7 @@ const Reaction = new Schema({
   },
   createdAt: {
     type: Date,
-    default: dayJs().format(),
+    default: dayJs().format("MM/DD/YYYY"),
     //todo: add getter method to format timestamp
   },
 });
